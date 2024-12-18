@@ -1,0 +1,43 @@
+<div class="container">
+    <header class="header">
+        <h1 class="header__text">My phone book!</h1>
+    </header>
+    <form class="form">
+        <input (input)="checkSpanInput()" name="searchInput" [(ngModel)]="searchInput" placeholder="search text goes here" type="text" class="form__txt input-txt">
+        <span *ngIf="checkSpan" (click)="resetInput()" class="close-input"></span>
+        <input (click)="addUsers()" value="add phone" type="button" class="form__btn input-btn">
+    </form>
+    <footer class="footer">
+        <div style="user-select: none;" class="footer__top">
+            <p [textContent]="filterItem === 'first' ? textFilerNameClick === 'abc' ? 'First name &#9650;' : textFilerNameClick === 'zyx' ? 'First name &#9660;': 'First name': 'First name' " (click)="filterClick('first')" class="footer__top-txt">First name</p>
+            <p [textContent]="filterItem === 'last' ? textFilerNameClick === 'abc' ? 'Last name &#9650;' : textFilerNameClick === 'zyx' ? 'Last name &#9660;': 'Last name': 'Last name' " (click)="filterClick('last')" class="footer__top-txt">Last name</p>
+            <p [textContent]="filterItem === 'phone' ? textFilerNameClick === 'abc' ? 'Number &#9650;' : textFilerNameClick === 'zyx' ? 'Number &#9660;': 'Number': 'Number' " (click)="filterClick('phone')" class="footer__top-txt">Number</p>
+            <p class="footer__top-txt">edit</p>
+            <p class="footer__top-txt">delete</p>
+        </div>
+        <div *ngFor="let item of arrUsers | search:searchInput | searchFirstName:textFilerNameClick:filterItem; index as i" class="footer__bottom">
+            <p class="footer__bottom-txt">{{ item.firstName }}</p>
+            <p class="footer__bottom-txt">{{ item.lastName }}</p>
+            <p class="footer__bottom-txt">{{ item.phone }}</p>
+            <button (click)="editUser(item)" class="footer__bottom-btn">edit</button>
+            <button (click)="deleteUser(item)" class="footer__bottom-btn footer__bottom-btn--red">delete</button>
+        </div>
+        
+    </footer>
+    <div *ngIf="modalCheck" class="modal">
+        <div class="modal__small">
+            <header class="modal__header">
+                <p class="modal__title">Add phone</p>
+                <span (click)="closeModule()" class="close-modal"></span>
+            </header>
+            <div class="modal__main">
+                <input name="firstName" [(ngModel)]="firstName" placeholder="first name goes here" type="text" class="modal__input">
+                <input name="lastName" [(ngModel)]="lastName" placeholder="second name goes here" type="text" class="modal__input">
+                <input name="numberPhone" [(ngModel)]="numberPhone" placeholder="number phone goes here" type="text" class="modal__input">
+            </div>
+            <footer class="modal__footer">
+                <button (click)="addUsersArr()" class="modal__btn">Save</button>
+            </footer>
+        </div>
+    </div>
+</div>
